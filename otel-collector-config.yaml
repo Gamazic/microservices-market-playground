@@ -14,17 +14,21 @@ exporters:
     endpoint: jaeger:14250
     tls:
       insecure: true
+  prometheus:
+    endpoint: "otel-collector:9464"
 
 processors:
   batch:
+  spanmetrics:
+    metrics_exporter: prometheus
 
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [batch]
-      exporters: [logging, jaeger]
+      processors: [spanmetrics, batch]
+      exporters: [jaeger, logging]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging]
+      exporters: [prometheus, logging]

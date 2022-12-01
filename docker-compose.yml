@@ -1,0 +1,93 @@
+version: "3.8"
+
+x-common-backend: &microservice
+  build:
+    context: .
+
+services:
+  cart-backend:
+    <<: *microservice
+    ports:
+      - "8001:8001"
+    command: ["opentelemetry-instrument", "uvicorn", "cart_backend.main:app", "--host", "0.0.0.0", "--port", "8001"]
+    env_file:
+      - common.env
+      - cart_backend/.env
+
+  cart-service:
+    <<: *microservice
+    ports:
+      - "8003:8003"
+    command: ["opentelemetry-instrument", "uvicorn", "cart_service.main:app", "--host", "0.0.0.0", "--port", "8003"]
+    env_file:
+      - common.env
+      - cart_service/.env
+
+  order-service:
+    <<: *microservice
+    ports:
+      - "8002:8002"
+    command: ["opentelemetry-instrument", "uvicorn", "order_service.main:app", "--host", "0.0.0.0", "--port", "8002" ]
+    env_file:
+      - common.env
+      - order_service/.env
+
+#  etl-service:
+#    <<: *microservice
+##    command: ["opentelemetry-instrument", "python", "amqp_airflow_dag/simple_scheduler.py"]
+#    command: "opentelemetry-instrument python amqp_airflow_dag/simple_scheduler.py"
+#    env_file:
+#      - common.env
+#      - amqp_airflow_dag/.env
+#    depends_on:
+#      rabbitmq:
+#        condition: service_healthy
+#    environment:
+#      PYTHONPATH: ./
+
+  warehouse-service:
+    <<: *microservice
+    command: ["opentelemetry-instrument", "python", "warehouse_service/main.py"]
+    env_file:
+      - common.env
+      - warehouse_service/.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      PYTHONPATH: ./
+
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "15672:15672"  # http
+      - "5672:5672"  # amqp
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    env_file:
+      - common.env
+    command: rabbitmq-server
+
+
+  otel-collector:
+    image: otel/opentelemetry-collector
+    command: [ "--config=/etc/otel-collector-config.yaml" ]
+    ports:
+      - "4317:4317"
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    ports:
+      - "14250:14250"
+      - "16686:16686"
+
+#  zipkin:
+#    image: openzipkin/zipkin
+#    ports:
+#      - "9411:9411"

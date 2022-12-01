@@ -1,0 +1,16 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  default:
+    (): 'logging.Formatter'
+    fmt: '%(asctime)s | %(message)s'
+handlers:
+  default:
+    class: logging.StreamHandler
+    formatter: default
+    stream: ext://sys.stdout
+loggers:
+  amqp_microservice:
+    level: INFO
+    handlers:
+      - default

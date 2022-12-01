@@ -1,0 +1,19 @@
+@startuml
+actor User
+participant ShopBackend
+participant OrderRegistryService
+queue OrderQueue
+database OrderRegistryDB
+
+User -> ShopBackend: buy
+activate ShopBackend
+ShopBackend -> OrderRegistryService: form an order
+activate OrderRegistryService
+OrderRegistryService -\ OrderQueue :send an order to queue
+OrderRegistryService -> OrderRegistryDB: save order
+ShopBackend <-- OrderRegistryService: order has sent
+deactivate OrderRegistryService
+User <-- ShopBackend: order has created
+deactivate ShopBackend
+
+@enduml

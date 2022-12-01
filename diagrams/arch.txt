@@ -1,0 +1,23 @@
+@startuml
+object cart_backend
+
+object cart_service
+object order_service
+
+() CartDB
+() OrdersQueue
+() RegistryDB
+
+object warehouse_service
+
+cart_backend --> cart_service : GET cart
+cart_service --> CartDB
+
+cart_backend --> order_service : CRUD order
+
+cart_backend --> cart_service : DELETE item
+order_service --> RegistryDB
+order_service --> OrdersQueue
+OrdersQueue --> warehouse_service
+
+@enduml

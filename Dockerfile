@@ -7,6 +7,6 @@ WORKDIR /src
 COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
-RUN opentelemetry-bootstrap --action=install
+RUN opentelemetry-bootstrap -a install
 
 COPY . .

@@ -6,36 +6,31 @@ receivers:
 
 exporters:
   logging:
-
-  zipkin:
-    endpoint: "http://zipkin:9411/api/v2/spans"
-    format: proto
-
   jaeger:
     endpoint: jaeger:14250
     tls:
       insecure: true
 
-  prometheus:
-    endpoint: "otel-collector:9464"
-    send_timestamps: true
+
+  prometheusremotewrite:
+    endpoint: "http://prometheus:9090/api/v1/write"
+    tls:
+      insecure: true
     resource_to_telemetry_conversion:
       enabled: true
-    enable_open_metrics: true
-    metric_expiration: 180m
 
 processors:
   batch:
   spanmetrics:
-    metrics_exporter: logging
+    metrics_exporter: prometheusremotewrite
 
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [spanmetrics, batch]
-      exporters: [logging]
+      processors: [batch, spanmetrics]
+      exporters: [logging, jaeger]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, prometheus]
+      exporters: [logging, prometheusremotewrite]

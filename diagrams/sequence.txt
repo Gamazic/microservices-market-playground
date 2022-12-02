@@ -1,19 +1,26 @@
 @startuml
 actor User
-participant ShopBackend
+participant CartBackend
 participant OrderRegistryService
+participant CartService
 queue OrderQueue
 database OrderRegistryDB
+database CartDB
 
-User -> ShopBackend: buy
-activate ShopBackend
-ShopBackend -> OrderRegistryService: form an order
+User -> CartBackend: buy from cart
+activate CartBackend
+CartBackend -> OrderRegistryService: form an order
 activate OrderRegistryService
 OrderRegistryService -\ OrderQueue :send an order to queue
 OrderRegistryService -> OrderRegistryDB: save order
-ShopBackend <-- OrderRegistryService: order has sent
+CartBackend <-- OrderRegistryService: order has sent
 deactivate OrderRegistryService
-User <-- ShopBackend: order has created
-deactivate ShopBackend
+CartBackend -> CartService: remove item from cart
+activate CartService
+CartService -> CartDB: remove item
+CartBackend <-- CartService: item has removed
+deactivate CartService
+User <-- CartBackend: order has created
+deactivate CartBackend
 
 @enduml

@@ -25,4 +25,10 @@ docker-compose up -d
 
 Extremely simple microservices cluster. It represents cart in online marketplace.
 
+### Microservices
+
 ![Diagram](diagrams/arch.drawio.png)
+
+### Sequence
+
+![your-UML-diagram-name](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Gamazic/microservices-market-playground/main/diagrams/sequence.txt)

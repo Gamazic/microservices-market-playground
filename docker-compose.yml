@@ -11,8 +11,8 @@ services:
       - "8001:8001"
     command: ["opentelemetry-instrument", "uvicorn", "cart_backend.main:app", "--host", "0.0.0.0", "--port", "8001"]
     env_file:
-      - common.env
-      - cart_backend/.env
+      - src/common.env
+      - src/cart_backend/.env
 
   cart-service:
     <<: *microservice
@@ -20,8 +20,8 @@ services:
       - "8003:8003"
     command: ["opentelemetry-instrument", "uvicorn", "cart_service.main:app", "--host", "0.0.0.0", "--port", "8003"]
     env_file:
-      - common.env
-      - cart_service/.env
+      - src/common.env
+      - src/cart_service/.env
 
   order-service:
     <<: *microservice
@@ -29,8 +29,8 @@ services:
       - "8002:8002"
     command: ["opentelemetry-instrument", "uvicorn", "order_service.main:app", "--host", "0.0.0.0", "--port", "8002" ]
     env_file:
-      - common.env
-      - order_service/.env
+      - src/common.env
+      - src/order_service/.env
 
 #  etl-service:
 #    <<: *microservice
@@ -49,8 +49,8 @@ services:
     <<: *microservice
     command: ["opentelemetry-instrument", "python", "warehouse_service/main.py"]
     env_file:
-      - common.env
-      - warehouse_service/.env
+      - src/common.env
+      - src/warehouse_service/.env
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -69,7 +69,7 @@ services:
       timeout: 10s
       retries: 3
     env_file:
-      - common.env
+      - src/common.env
     command: rabbitmq-server
 
 
@@ -88,7 +88,7 @@ services:
       - "4318:4318"   # OTLP http receiver
       - "55679:55679" # zpages extension
     volumes:
-      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+      - ./config/otel-collector-config.yaml:/etc/otel-collector-config.yaml
 
   jaeger:
     image: jaegertracing/all-in-one
@@ -109,7 +109,7 @@ services:
       - --web.route-prefix=/
       - --enable-feature=remote-write-receiver
     volumes:
-      - ./prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
+      - ./config/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
     ports:
       - "9090:9090"
 
@@ -121,8 +121,3 @@ services:
 #      - ./grafana/provisioning/:/etc/grafana/provisioning/
     ports:
       - "3000:3000"
-
-#  zipkin:
-#    image: openzipkin/zipkin
-#    ports:
-#      - "9411:9411"

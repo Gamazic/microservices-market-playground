@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" modified="2022-12-02T14:45:30.527Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="cKfGBxNlJjKEvpiBF63K" version="20.6.0" type="github">
+  <diagram id="8lw6nRxMKUEa2ikkNAPA" name="Страница 1">
+    <mxGraphModel dx="1422" dy="754" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-14" value="Async handlers" style="shape=umlFrame;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="500" y="405" width="330" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" parent="1" source="IekFcLLcEVsyyoEOa2T2-1" target="IekFcLLcEVsyyoEOa2T2-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" parent="1" source="IekFcLLcEVsyyoEOa2T2-1" target="IekFcLLcEVsyyoEOa2T2-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-1" value="CartBackend" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="508" y="160" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" parent="1" source="IekFcLLcEVsyyoEOa2T2-2" target="IekFcLLcEVsyyoEOa2T2-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-2" value="CartService" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="450" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" parent="1" source="IekFcLLcEVsyyoEOa2T2-3" target="IekFcLLcEVsyyoEOa2T2-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=async;endFill=1;" parent="1" source="IekFcLLcEVsyyoEOa2T2-3" target="IekFcLLcEVsyyoEOa2T2-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-3" value="OrderService" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="566.75" y="240" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-4" value="CartDB" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;dashed=1;" parent="1" vertex="1">
+          <mxGeometry x="370" y="230" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="IekFcLLcEVsyyoEOa2T2-5" target="IekFcLLcEVsyyoEOa2T2-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;dashed=1;" parent="1" source="IekFcLLcEVsyyoEOa2T2-5" target="IekFcLLcEVsyyoEOa2T2-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-5" value="orders queue" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.queue;fillColor=#D9A741;gradientColor=none;" parent="1" vertex="1">
+          <mxGeometry x="580" y="310" width="73.5" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" parent="1" source="IekFcLLcEVsyyoEOa2T2-6" target="IekFcLLcEVsyyoEOa2T2-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-6" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="543" y="40" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-7" value="WarehouseService" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="556.75" y="430" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-15" value="OtherServices..." style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;dashed=1;" parent="1" vertex="1">
+          <mxGeometry x="690" y="430" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IekFcLLcEVsyyoEOa2T2-18" value="OrderDB" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;dashed=1;" parent="1" vertex="1">
+          <mxGeometry x="686.75" y="230" width="60" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

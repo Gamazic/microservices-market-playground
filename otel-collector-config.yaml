@@ -2,6 +2,7 @@ receivers:
   otlp:
     protocols:
       grpc:
+      http:
 
 exporters:
   logging:
@@ -14,21 +15,27 @@ exporters:
     endpoint: jaeger:14250
     tls:
       insecure: true
+
   prometheus:
     endpoint: "otel-collector:9464"
+    send_timestamps: true
+    resource_to_telemetry_conversion:
+      enabled: true
+    enable_open_metrics: true
+    metric_expiration: 180m
 
 processors:
   batch:
   spanmetrics:
-    metrics_exporter: prometheus
+    metrics_exporter: logging
 
 service:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [spanmetrics, batch]
-      exporters: [jaeger, logging]
+      exporters: [logging]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [prometheus, logging]
+      exporters: [logging, prometheus]

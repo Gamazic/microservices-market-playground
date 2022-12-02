@@ -79,11 +79,14 @@ services:
     restart: always
     command: [ "--config=/etc/otel-collector-config.yaml" ]
     ports:
-      - "4317:4317"  # OTLP over gRPC receiver
-      - "9464:9464"  # Prometheus exporter
-      - "8888:8888"  # metrics endpoint
-      - "1777:1777"
-      - "55679:55679"
+      - "1888:1888"   # pprof extension
+      - "8888:8888"   # Prometheus metrics exposed by the collector
+      - "8889:8889"   # Prometheus exporter metrics
+      - "9464:9464"   # Prometheus exporter 2
+      - "13133:13133" # health_check extension
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP http receiver
+      - "55679:55679" # zpages extension
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
 
@@ -94,7 +97,7 @@ services:
       - "16686:16686"
 
   prometheus:
-    image: quay.io/prometheus/prometheus
+    image: quay.io/prometheus/prometheus:v2.34.0
     container_name: prometheus
     command:
       - --web.console.templates=/etc/prometheus/consoles
@@ -104,13 +107,14 @@ services:
       - --storage.tsdb.path=/prometheus
       - --web.enable-lifecycle
       - --web.route-prefix=/
+      - --enable-feature=remote-write-receiver
     volumes:
       - ./prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
     ports:
       - "9090:9090"
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:9.1.0
     container_name: grafana
 #    volumes:
 #      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
